@@ -5,24 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus AI | Elite Portal</title>
     <style>
+        /* CSS Logic */
         :root { --primary: #00d2ff; --bg: #050505; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; margin: 0; }
-        .bg-circles { position: absolute; width: 100%; height: 100%; z-index: 1; }
+        
+        .bg-circles { position: absolute; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
         .circle { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
         .c1 { width: 300px; height: 300px; background: var(--primary); top: -10%; left: -10%; }
-        .c2 { width: 300px; height: 300px; background: #3a7bd5; bottom: -10%; right: -10%; }
-        .login-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); width: 350px; text-align: center; z-index: 1000; position: relative; color: white; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .c2 { width: 400px; height: 400px; background: #3a7bd5; bottom: -10%; right: -10%; }
+
+        .login-card { 
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(20px); 
+            padding: 40px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1); 
+            width: 350px; text-align: center; z-index: 1000; position: relative; color: white;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
         .welcome-text { letter-spacing: 5px; font-size: 32px; font-weight: 800; margin-bottom: 5px; }
         .subtitle { color: var(--primary); font-size: 12px; margin-bottom: 25px; font-weight: bold; }
+        
         .inp { width: 100%; padding: 15px; margin: 10px 0; border-radius: 10px; border: 1px solid #333; background: #000; color: #fff; box-sizing: border-box; }
+        
         .captcha-display { display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.1); padding: 10px 15px; border-radius: 10px; margin: 10px 0; }
         #captcha-code { font-size: 22px; font-weight: bold; color: var(--primary); letter-spacing: 5px; }
-        .refresh-btn { background: none; border: none; cursor: pointer; color: white; }
-        .login-btn { width: 100%; padding: 18px; border-radius: 10px; border: none; background: linear-gradient(45deg, var(--primary), #3a7bd5); color: #fff; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; }
-        .door { position: fixed; top: 0; width: 50%; height: 100%; background: #111; z-index: 500; transition: 2s cubic-bezier(.7,0,.3,1); border: 1px solid #222; }
+        
+        .login-btn { width: 100%; padding: 18px; border-radius: 10px; border: none; background: linear-gradient(45deg, var(--primary), #3a7bd5); color: #fff; font-weight: bold; cursor: pointer; font-size: 16px; margin-top: 10px; transition: 0.3s; }
+        .login-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--primary); }
+
+        /* Door Animation */
+        .door { position: fixed; top: 0; width: 50%; height: 100%; background: #111; z-index: 5000; transition: 2s cubic-bezier(.7,0,.3,1); border: 1px solid #222; }
         .left-door { left: 0; } .right-door { right: 0; }
         .open-left { transform: translateX(-100%); } .open-right { transform: translateX(100%); }
-        .person-silhouette { position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%); width: 60px; height: 120px; background: #000; border-radius: 30px; opacity: 0; z-index: 450; transition: 2s; }
+        
+        .person-silhouette { position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%); width: 60px; height: 120px; background: #000; border-radius: 30px; opacity: 0; z-index: 4500; transition: 2s; }
         .enter-person { bottom: 30%; opacity: 1; }
     </style>
 </head>
@@ -31,22 +45,57 @@
         <div class="circle c1"></div>
         <div class="circle c2"></div>
     </div>
+
     <div id="door-container">
         <div class="door left-door"></div>
         <div class="door right-door"></div>
         <div class="person-silhouette" id="person"></div>
     </div>
+
     <div class="login-card" id="login-form">
         <h2 class="welcome-text">WELCOME</h2>
-        <p class="subtitle">NEXUS AI AUTONOMOUS SYSTEM</p>
+        <p class="subtitle">NEXUS AI SYSTEM</p>
+        
         <input type="text" id="username" placeholder="👤 Identify Yourself" class="inp">
+        
         <div class="captcha-display">
             <span id="captcha-code">----</span>
-            <button class="refresh-btn" onclick="generateCaptcha()">🔄</button>
+            <button style="background:none; border:none; cursor:pointer; color:white;" onclick="generateCaptcha()">🔄</button>
         </div>
+        
         <input type="text" id="captcha-input" placeholder="🔢 Enter Captcha" class="inp">
+        
         <button class="login-btn" onclick="handleLogin()">INITIALIZE ACCESS ⚡</button>
     </div>
-    <script src="script.js"></script>
+
+    <script>
+        // JS Logic
+        function generateCaptcha() {
+            const code = Math.random().toString(36).substring(2, 7).toUpperCase();
+            document.getElementById('captcha-code').innerText = code;
+        }
+
+        function handleLogin() {
+            const user = document.getElementById('username').value;
+            const input = document.getElementById('captcha-input').value;
+            const code = document.getElementById('captcha-code').innerText;
+
+            if (user.trim() !== "" && input === code) {
+                document.querySelector('.left-door').classList.add('open-left');
+                document.querySelector('.right-door').classList.add('open-right');
+                document.getElementById('person').classList.add('enter-person');
+                document.getElementById('login-form').style.opacity = '0';
+                
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 2500);
+            } else {
+                alert("Access Denied: Invalid Credentials");
+                generateCaptcha();
+            }
+        }
+
+        window.onload = generateCaptcha;
+    </script>
 </body>
 </html>
