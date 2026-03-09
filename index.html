@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus AI | Access</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-circles">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+    </div>
+    <div id="door-container">
+        <div class="door left-door"></div>
+        <div class="door right-door"></div>
+        <div class="person-silhouette" id="person"></div>
+    </div>
+    <div class="login-card" id="login-form">
+        <h2 class="welcome-text">WELCOME</h2>
+        <p class="subtitle">Nexus AI System</p>
+        <input type="text" id="username" placeholder="Enter Name" class="inp">
+        <div class="captcha-display">
+            <span id="captcha-code">----</span>
+            <button onclick="generateCaptcha()">🔄</button>
+        </div>
+        <input type="text" id="captcha-input" placeholder="Enter Captcha" class="inp">
+        <button class="login-btn" onclick="handleLogin()">ACCESS SYSTEM ⚡</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
