@@ -1,0 +1,17 @@
+:root { --primary: #00d2ff; --bg: #050505; }
+body { font-family: sans-serif; background: var(--bg); height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; margin: 0; }
+.bg-circles { position: absolute; width: 100%; height: 100%; z-index: 1; }
+.circle { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
+.c1 { width: 300px; height: 300px; background: var(--primary); top: -10%; left: -10%; }
+.c2 { width: 300px; height: 300px; background: #3a7bd5; bottom: -10%; right: -10%; }
+.login-card { background: rgba(255,255,255,0.05); backdrop-filter: blur(15px); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); width: 350px; text-align: center; z-index: 1000; position: relative; color: white; }
+.welcome-text { letter-spacing: 5px; font-size: 30px; }
+.inp { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #333; background: #000; color: #fff; }
+.captcha-display { display: flex; justify-content: space-between; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-bottom: 5px; }
+#captcha-code { font-size: 20px; font-weight: bold; color: var(--primary); letter-spacing: 3px; }
+.login-btn { width: 100%; padding: 15px; border-radius: 8px; border: none; background: var(--primary); color: #fff; font-weight: bold; cursor: pointer; }
+.door { position: fixed; top: 0; width: 50%; height: 100%; background: #111; z-index: 500; transition: 2s; border: 1px solid #222; }
+.left-door { left: 0; } .right-door { right: 0; }
+.open-left { transform: translateX(-100%); } .open-right { transform: translateX(100%); }
+.person-silhouette { position: fixed; bottom: -150px; left: 50%; transform: translateX(-50%); width: 60px; height: 120px; background: #000; border-radius: 30px; opacity: 0; z-index: 450; transition: 2s; }
+.enter-person { bottom: 30%; opacity: 1; }
