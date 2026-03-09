@@ -13,7 +13,7 @@ function handleLogin() {
         document.getElementById('login-form').style.opacity = '0';
         setTimeout(() => { window.location.href = 'dashboard.html'; }, 2500);
     } else {
-        alert("Check Name & Captcha!");
+        alert("Verification Failed!");
         generateCaptcha();
     }
 }
